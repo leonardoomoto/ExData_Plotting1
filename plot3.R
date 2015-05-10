@@ -1,0 +1,15 @@
+household_power_consumption <- read.csv("C:/Users/Omoto/Desktop/household_power_consumption.txt", sep=";")
+newData <- subset(household_power_consumption, as.Date(household_power_consumption$Date, format="%d/%m/%Y")=="2007-02-01" | as.Date(household_power_consumption$Date, format="%d/%m/%Y") == "2007-02-02")
+datetime <- as.POSIXct(paste(newData$Date, newData$Time), format="%d/%m/%Y %H:%M:%S")
+plot(datetime,  as.numeric(sub(",", ".", newData$Sub_metering_1, fixed = TRUE)), ylab="Energy sub metering", type="l", lwd=1, xlab="")
+lines(datetime, as.numeric(sub(",", ".", newData$Sub_metering_2, fixed = TRUE)),col="red",lwd=1)
+lines(datetime, as.numeric(sub(",", ".", newData$Sub_metering_3, fixed = TRUE)),col="blue",lwd=1)
+legend("topright", 'groups',c("Sub_metering_1","Sub_metering_2","Sub_metering_3"), lty = c(1,1,1),col=c('black','red','blue'),ncol=1)
+
+
+png('plot3.png', width=480, height= 480)
+plot(datetime,  as.numeric(sub(",", ".", newData$Sub_metering_1, fixed = TRUE)), ylab="Energy sub metering", type="l", lwd=1, xlab="")
+lines(datetime, as.numeric(sub(",", ".", newData$Sub_metering_2, fixed = TRUE)),col="red",lwd=1)
+lines(datetime, as.numeric(sub(",", ".", newData$Sub_metering_3, fixed = TRUE)),col="blue",lwd=1)
+legend("topright", 'groups',c("Sub_metering_1","Sub_metering_2","Sub_metering_3"), lty = c(1,1,1),col=c('black','red','blue'),ncol=1)
+dev.off()
